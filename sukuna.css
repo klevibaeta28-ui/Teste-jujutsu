@@ -139,12 +139,12 @@ body,html{
 
 /* Classe para o Corte Normal (Preto e Branco) */
 #cursor-aura.corte-normal {
-    background-image: url('Corte.png'); /* A SUA IMAGEM AQUI */
+    background-image: url('img/Corte.png'); /* A SUA IMAGEM AQUI */
 }
 
 /* Classe para o Corte Mundial (Colorido/Espacial) */
 #cursor-aura.corte-mundial {
-    background-image: url('Corte_mudial.png'); /* A SUA IMAGEM AQUI */
+    background-image: url('img/Corte_mudial.png'); /* A SUA IMAGEM AQUI */
 }
 /* ... (Seu CSS existente: h1, h2, container, etc.) ... */
 
