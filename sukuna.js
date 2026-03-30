@@ -176,8 +176,8 @@ let prevMouseX = 0, prevMouseY = 0;
 let mouseRotation = 0;
 
 // Configuração das imagens (Nomes exatos dos seus arquivos PNG transparentes)
-const imagemCorteNormal = "Corte.png";
-const imagemCorteMundial = "Corte_mudial.png";
+const imagemCorteNormal = "img/Corte.png";
+const imagemCorteMundial = "img/Corte_mudial.png";
 
 // --- 1. LÓGICA DO RASTRO E ROTAÇÃO (mousemove) ---
 document.addEventListener("mousemove", (e) => {
