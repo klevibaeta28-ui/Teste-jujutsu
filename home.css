@@ -39,36 +39,22 @@ a {
 a:hover {
     text-decoration: underline; /* Fica sublinhado quando passa o mouse */
 }
-.area-botoes {
-    display: flex;
-    flex-wrap: wrap;       /* Se não couber na tela, ele pula para baixo em vez de quebrar */
-    gap: 20px;
-    margin-top: 20px;
-    align-items: flex-start; /* Alinha o topo de todos os botões */
-}
 
-.link-imagem {
-    display: block;
-    width: 150px;          /* Ajuste a largura desejada aqui */
-    height: 100px;         /* AJUSTE IMPORTANTE: Defina uma altura fixa para o botão */
-    text-decoration: none;
-    position: relative;
-    overflow: hidden;      /* Garante que nada saia para fora do botão */
-    background-color: transparent; 
-}
-
-.midia-botao {
-    width: 100%;
-    height: 100%;          /* Faz a imagem/vídeo preencher o tamanho fixo do pai */
-    object-fit: cover;     /* Garante que a imagem não mude de tamanho ao trocar pelo vídeo */
-    display: block;
-    border: none !important;
-    box-shadow: none !important;
-}
-
-#video-hover, #img-final, #video-sukuna, #img-final-sukuna {
-    display: none;
-    position: absolute;    /* Coloca o vídeo exatamente em cima da imagem */
+#video-gojo, #img-final-gojo, #video-sukuna, #img-final-sukuna {
+    display: none; /* Esconde por padrão */
+    position: absolute; 
     top: 0;
     left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Garante que o container seja o ponto de referência */
+.link-imagem {
+    position: relative;
+    display: inline-block; /* Mudado de block para inline-block para caber um do lado do outro */
+    width: 150px;
+    height: 100px;
+    overflow: hidden;
 }
