@@ -195,3 +195,6 @@ body,html{
 }
 
 /* ... (Mantenha o resto do seu CSS igual: h1, h2, p, container, animações de fatiar, etc.) ... */
+#cursor-aura, .trail-element {
+    pointer-events: none; /* Isso faz o toque "atravessar" o rastro e clicar no que está atrás */
+}
