@@ -3,39 +3,33 @@ const botao2 = document.getElementById("Gojo");
 const videog = document.getElementById("dominio");
 const videog2 = document.getElementById("dominio-rapido");
 
-// --- LOGICA DA AURA (MOUSE + TOUCH) ---
-function moverAura(e) {
-    const x = e.touches ? e.touches[0].clientX : e.clientX;
-    const y = e.touches ? e.touches[0].clientY : e.clientY;
-    
+document.addEventListener("touchmove", (e) => {
+    const touch = e.touches[0];
+    const x = touch.clientX;
+    const y = touch.clientY;
+
+    // Move a Aura
     if (aura) {
         aura.style.left = x + "px";
         aura.style.top = y + "px";
-        aura.style.opacity = "1";
     }
-}
 
-document.addEventListener("mousemove", moverAura);
-document.addEventListener("touchstart", moverAura);
-document.addEventListener("touchmove", moverAura);
-
-// --- TROCA DE CORES ---
-const blocos = [
-    { el: document.querySelector("h1"), classe: "aura-azur" },
-    { el: document.querySelector(".img2"), classe: "aura-azur" },
-    { el: document.querySelector("#bloco-resumo"), classe: "aura-vermelho" },
-    { el: document.querySelector("#bloco-derrota"), classe: "aura-roxo" }
-];
-
-blocos.forEach(item => {
-    if (item.el) {
-        item.el.addEventListener("mouseenter", () => {
-            aura.className = ""; 
-            aura.classList.add(item.classe);
-        });
+    // Detecta o elemento embaixo do dedo
+    const alvo = document.elementFromPoint(x, y);
+    
+    if (alvo) {
+        // Se estiver no Resumo, usa a cor/corte do Gojo
+        if (alvo.closest('#bloco-resumo')) {
+            criarRastro(x, y, 0, 'img/Corte_Gojo.png'); // Use sua imagem azul
+            aura.className = 'corte-gojo'; 
+        } 
+        // Se estiver na Derrota, muda a aura/cor
+        else if (alvo.closest('#bloco-derrota')) {
+            criarRastro(x, y, 0, 'img/Corte_Mundial.png');
+            aura.className = 'corte-mundial';
+        }
     }
-});
-
+}, { passive: false });
 // --- LÓGICA DOS VÍDEOS ---
 let cliques = 0;
 let timer;

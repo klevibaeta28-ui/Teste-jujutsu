@@ -1,16 +1,13 @@
 /* --- CONFIGURAÇÃO DA AURA --- */
 /* Ajuste na Aura */
-#cursor-aura {
-    width: 25px;
-    height: 25px;
-    background-color: white;
-    border-radius: 50%;
-    position: fixed;
-    pointer-events: none; /* ESSENCIAL: para clicar nos botões por "trás" da aura */
-    z-index: 9999;
-    transform: translate(-50%, -50%);
-    transition: background-color 0.3s, width 0.3s, height 0.3s;
-    box-shadow: 0 0 20px currentColor;
+#cursor-aura.corte-gojo {
+    background-color: rgba(0, 100, 255, 0.4); /* Azul para o Gojo */
+    box-shadow: 0 0 15px #00aaff;
+}
+
+#cursor-aura.corte-mundial {
+    background-color: rgba(255, 0, 0, 0.4); /* Vermelho/Roxo para Derrota */
+    box-shadow: 0 0 15px #ff0000;
 }
 
 /* Responsividade para Celular */
