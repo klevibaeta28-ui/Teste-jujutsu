@@ -8,28 +8,40 @@ document.addEventListener("touchmove", (e) => {
     const x = touch.clientX;
     const y = touch.clientY;
 
-    // Move a Aura
     if (aura) {
         aura.style.left = x + "px";
         aura.style.top = y + "px";
+        aura.style.opacity = "1"; // Garante que ela apareça
+        
+        // --- TRUQUE MÁGICO ---
+        // Desliga o clique da aura rapidinho para o código "atravessar" ela e ver o texto
+        aura.style.pointerEvents = "none"; 
     }
 
-    // Detecta o elemento embaixo do dedo
     const alvo = document.elementFromPoint(x, y);
     
     if (alvo) {
-        // Se estiver no Resumo, usa a cor/corte do Gojo
-        if (alvo.closest('#bloco-resumo')) {
-            criarRastro(x, y, 0, 'img/Corte_Gojo.png'); // Use sua imagem azul
-            aura.className = 'corte-gojo'; 
-        } 
-        // Se estiver na Derrota, muda a aura/cor
-        else if (alvo.closest('#bloco-derrota')) {
+        const blocoResumo = alvo.closest('#bloco-resumo');
+        const blocoDerrota = alvo.closest('#bloco-derrota');
+
+        if (blocoResumo) {
+            aura.className = 'corte-gojo'; // Muda a cor no CSS
+            // Só cria rastro se estiver movendo rápido (opcional)
+            criarRastro(x, y, 0, 'img/Corte_Gojo.png');
+        } else if (blocoDerrota) {
+            aura.className = 'corte-mundial'; // Muda a cor no CSS
             criarRastro(x, y, 0, 'img/Corte_Mundial.png');
-            aura.className = 'corte-mundial';
+        } else {
+            // Se sair dos blocos, limpa a classe ou volta ao padrão
+            aura.className = '';
         }
     }
 }, { passive: false });
+
+// Adicione esse evento para a aura sumir quando soltar o dedo
+document.addEventListener("touchend", () => {
+    if (aura) aura.style.opacity = "0";
+});
 // --- LÓGICA DOS VÍDEOS ---
 let cliques = 0;
 let timer;
