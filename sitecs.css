@@ -146,20 +146,17 @@ p, .p2 {
    6. RESPONSIVIDADE (FOCO NO MOBILE)
    ========================================== */
 @media (max-width: 600px) {
-    .container-texto {
-        padding: 15px;
+    #cursor-aura {
+        width: 40px; /* Um pouco menor para não cobrir o dedo */
+        height: 40px;
+        display: block !important; /* Garante que ela não seja escondida */
     }
-
-    h1 { font-size: 2.2rem; margin-top: 60px; }
-    h2 { font-size: 1.8rem; }
-    p, .p2 { font-size: 1rem; }
-
-    .link-imagem {
-        width: 50px; /* Tamanho perfeito do Sukuna */
-        top: 10px;
-        left: 10px;
+    
+    .trail-element {
+        width: 60px !important;
+        height: 60px !important;
     }
-
+}
     #cursor-aura {
         width: 40px; 
         height: 40px;
@@ -169,4 +166,3 @@ p, .p2 {
     .img2 {
         max-width: 85%;
     }
-}
