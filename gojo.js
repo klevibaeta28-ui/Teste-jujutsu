@@ -3,18 +3,37 @@ const botao2 = document.getElementById("Gojo");
 const videog = document.getElementById("dominio");
 const videog2 = document.getElementById("dominio-rapido");
 
-document.addEventListener("touchmove", (e) => {
-    const touch = e.touches[0];
-    const x = touch.clientX;
-    const y = touch.clientY;
+// Variáveis para calcular o rastro
+let prevX = 0;
+let prevY = 0;
+
+// --- FUNÇÃO PARA CRIAR O RASTRO (ESTAVA FALTANDO!) ---
+function criarRastro(x, y, angulo, imagemSrc) {
+    const rastro = document.createElement('img');
+    rastro.src = imagemSrc;
+    rastro.className = 'trail-element'; // Certifique-se de ter essa classe no CSS
+    rastro.style.left = x + 'px';
+    rastro.style.top = y + 'px';
+    rastro.style.transform = `translate(-50%, -50%) rotate(${angulo}deg)`;
+    
+    document.body.appendChild(rastro);
+
+    // Remove o rastro depois de um tempinho
+    setTimeout(() => {
+        rastro.style.opacity = '0';
+        setTimeout(() => rastro.remove(), 500);
+    }, 100);
+}
+
+// --- MOVIMENTO (MOUSE E TOQUE) ---
+function manipularMovimento(e) {
+    const x = e.touches ? e.touches[0].clientX : e.clientX;
+    const y = e.touches ? e.touches[0].clientY : e.clientY;
 
     if (aura) {
         aura.style.left = x + "px";
         aura.style.top = y + "px";
-        aura.style.opacity = "1"; // Garante que ela apareça
-        
-        // --- TRUQUE MÁGICO ---
-        // Desliga o clique da aura rapidinho para o código "atravessar" ela e ver o texto
+        aura.style.opacity = "1";
         aura.style.pointerEvents = "none"; 
     }
 
@@ -24,24 +43,42 @@ document.addEventListener("touchmove", (e) => {
         const blocoResumo = alvo.closest('#bloco-resumo');
         const blocoDerrota = alvo.closest('#bloco-derrota');
 
-        if (blocoResumo) {
-            aura.className = 'corte-gojo'; // Muda a cor no CSS
-            // Só cria rastro se estiver movendo rápido (opcional)
-            criarRastro(x, y, 0, 'img/Corte_Gojo.png');
-        } else if (blocoDerrota) {
-            aura.className = 'corte-mundial'; // Muda a cor no CSS
-            criarRastro(x, y, 0, 'img/Corte_Mundial.png');
-        } else {
-            // Se sair dos blocos, limpa a classe ou volta ao padrão
-            aura.className = '';
+        // Cálculo de ângulo para o rastro
+        const diffX = x - prevX;
+        const diffY = y - prevY;
+        const angulo = Math.atan2(diffY, diffX) * (180 / Math.PI);
+        const velocidade = Math.sqrt(diffX * diffX + diffY * diffY);
+
+        if (velocidade > 5) {
+            if (blocoResumo) {
+                aura.className = 'corte-gojo';
+                criarRastro(x, y, angulo, 'img/Corte_Gojo.png');
+            } else if (blocoDerrota) {
+                aura.className = 'corte-mundial';
+                criarRastro(x, y, angulo, 'img/Corte_Mundial.png');
+            } else {
+                aura.className = '';
+            }
         }
     }
+    prevX = x;
+    prevY = y;
+}
+
+document.addEventListener("mousemove", manipularMovimento);
+document.addEventListener("touchmove", (e) => {
+    manipularMovimento(e);
+    // Trava a rolagem apenas se estiver cortando lateralmente
+    const touch = e.touches[0];
+    const diffX = Math.abs(touch.clientX - prevX);
+    const diffY = Math.abs(touch.clientY - prevY);
+    if (diffX > diffY) e.preventDefault(); 
 }, { passive: false });
 
-// Adicione esse evento para a aura sumir quando soltar o dedo
 document.addEventListener("touchend", () => {
     if (aura) aura.style.opacity = "0";
 });
+
 // --- LÓGICA DOS VÍDEOS ---
 let cliques = 0;
 let timer;
@@ -61,11 +98,11 @@ botao2.addEventListener("click", () => {
 });
 
 function rodarDominio(video, velocidade) {
-    document.body.classList.add("modo-braco");
+    document.body.classList.add("modo-braco"); // Mantive "braco" para combinar com seu CSS
     video.classList.add("mostra-video");
     video.playbackRate = velocidade;
     video.currentTime = 0;
-    video.play();
+    video.play().catch(e => console.log("Erro ao tocar vídeo:", e));
     
     video.onended = () => {
         video.classList.remove("mostra-video");

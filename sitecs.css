@@ -172,3 +172,10 @@ body.modo-braco h2,
 body.modo-braco p {
     color: black;
 }
+.trail-element {
+    position: fixed;
+    width: 80px; 
+    pointer-events: none;
+    z-index: 9998;
+    transition: opacity 0.5s ease;
+}
