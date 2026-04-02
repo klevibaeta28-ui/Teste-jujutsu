@@ -1,5 +1,5 @@
 /* ==========================================
-   1. CONFIGURAÇÕES GERAIS (BODY/HTML)
+   1. CONFIGURAÇÕES GERAIS (ESTILO SUKUNA)
    ========================================== */
 body, html {
     background-color: rgb(0, 0, 0);
@@ -7,151 +7,117 @@ body, html {
     padding: 0;
     min-height: 100vh;
     overflow-x: hidden;
-    transition: background-color 0.5s ease;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
-/* Esconde o mouse padrão no PC para a Aura brilhar sozinha */
-body {
-    cursor: none; 
+    transition: 0.3s;
+    cursor: none; /* Esconde o mouse no PC para usar a Aura */
 }
 
-/* Mas garante que a seta apareça nos botões para o usuário saber onde clicar */
-a, button, .link-botao, #Gojo {
-    cursor: pointer;
-}
-
-/* Ajuste para a aura não sumir no PC */
-#cursor-aura {
-    opacity: 0; /* Começa invisível até o mouse mexer */
-}
 /* Modo Branco (Pós-Domínio) */
 body.modo-braco {
     background-color: white;
 }
-
-body.modo-braco h1, 
-body.modo-braco h2, 
-body.modo-braco p {
+body.modo-braco h1, body.modo-braco h2, body.modo-braco p {
     color: black;
 }
 
 /* ==========================================
-   2. ELEMENTOS VISUAIS (AURA E RASTRO)
+   2. AURA / BOLA DO GOJO
    ========================================== */
 #cursor-aura {
     position: fixed;
-    pointer-events: none; /* Essencial para o toque atravessar a aura */
-    z-index: 9999;
+    pointer-events: none;
+    z-index: 7000;
     transform: translate(-50%, -50%);
     border-radius: 50%;
     width: 30px;
     height: 30px;
     opacity: 0;
-    background-color: rgba(0, 150, 255, 0.7); /* Azul padrão Gojo */
-    box-shadow: 0 0 20px #00aaff;
     transition: opacity 0.2s, background-color 0.3s, box-shadow 0.3s;
 }
 
-/* Classes de cores acionadas pelo JS */
+/* Cores acionadas pelo JS */
 .aura-azul {
-    background-color: rgba(0, 150, 255, 0.7) !important;
+    background-color: rgba(0, 150, 255, 0.4) !important;
     box-shadow: 0 0 20px #00aaff, 0 0 40px #0044ff;
 }
-
 .aura-vermelho {
-    background-color: rgba(255, 0, 0, 0.7) !important;
+    background-color: rgba(255, 0, 0, 0.4) !important;
     box-shadow: 0 0 20px #ff0000, 0 0 40px #aa0000;
 }
-
 .aura-roxo {
-    background-color: rgba(138, 43, 226, 0.7) !important;
+    background-color: rgba(138, 43, 226, 0.4) !important;
     box-shadow: 0 0 20px #8a2be2, 0 0 40px #4b0082;
 }
 
-/* Elementos de rastro (se usados) */
-.trail-element {
-    position: fixed;
-    width: 80px; 
-    pointer-events: none;
-    z-index: 9998;
-    transition: opacity 0.5s ease;
-}
-
 /* ==========================================
-   3. NAVEGAÇÃO E BOTÕES
+   3. NAVEGAÇÃO E BOTÕES (IGUAL SUKUNA)
    ========================================== */
-/* --- AJUSTE DA SETA DE VOLTAR --- */
 .link-imagem {
     position: absolute;
-    top: 20px;
-    left: 20px;
-    width: 80px;          /* Aumentei de 40px para 80px no PC */
+    top: 10px;
+    left: 10px;
     z-index: 1000;
-    transition: transform 0.3s ease; /* Efeito de balanço ao passar o mouse */
+    width: 60px; /* Tamanho no PC */
 }
 
 .link-botao {
     width: 100%;
     height: auto;
     display: block;
-    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5)); /* Brilho na seta */
-}
-
-/* Efeito de destaque no PC */
-.link-imagem:hover {
-    transform: scale(1.15); /* Aumenta um pouco quando passa o mouse */
+    cursor: pointer;
 }
 
 .BU2css {
     display: block;
-    margin: 40px auto;
-    padding: 10px 30px;
+    margin: 20px auto;
+    padding: 10px 25px;
     cursor: pointer;
-    z-index: 10;
 }
 
 /* ==========================================
-   4. CONTEÚDO (TEXTOS E IMAGENS)
+   4. LAYOUT DE TEXTO (PADRÃO SUKUNA)
    ========================================== */
 .container-texto {
     max-width: 800px;
     margin: 0 auto;
-    padding: 10px 20px;
+    padding: 20px;
+    text-align: left;
 }
 
 h1 {
     text-align: center;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     color: rgb(145, 145, 145);
     font-size: 3rem;
-    margin-top: 60px;
+    margin-top: 50px;
 }
 
 h2 {
-    text-align: left;
+    margin-bottom: 5px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     color: rgb(200, 200, 200);
-    margin-top: 20px;
-    margin-bottom: 10px;
-    font-size: 2.2rem;
+    font-size: 2.5rem;
+    margin-top: 30px;
 }
 
 p, .p2 {
     text-align: justify;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     color: rgb(180, 180, 180);
+    margin-top: 0;
     line-height: 1.6;
     margin-bottom: 20px;
-    display: block;
 }
 
-/* Imagem de Destaque */
+/* Imagem Central */
 .img2 {
     display: block;
     margin: 20px auto;
     max-width: 300px;
     border: 2px solid rgb(255, 255, 255);
-    box-shadow: 0 0 15px rgba(253, 253, 253, 0.5);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
 }
 
-/* Spans para efeitos de fatiamento futuro */
+/* Espaçamento para fatiamento futuro */
 .p2 span, h2 span, h1 span {
     display: inline-block;
     white-space: pre;
@@ -172,36 +138,35 @@ p, .p2 {
     z-index: 99;
     pointer-events: none;
 }
-
 .mostra-video {
     display: block !important;
 }
 
 /* ==========================================
-   6. RESPONSIVIDADE (MOBILE)
+   6. RESPONSIVIDADE (FOCO NO MOBILE)
    ========================================== */
 @media (max-width: 600px) {
     .container-texto {
-        max-width: 95%;
-        padding: 5px 15px;
+        padding: 15px;
     }
 
-    h1 { font-size: 2.2rem; margin-top: 70px; }
-    h2 { font-size: 1.7rem; margin-top: 15px; }
-    p, .p2 { font-size: 1.1rem; text-align: left; }
+    h1 { font-size: 2.2rem; margin-top: 60px; }
+    h2 { font-size: 1.8rem; }
+    p, .p2 { font-size: 1rem; }
 
-    .img2 {
-        max-width: 85%;
+    .link-imagem {
+        width: 50px; /* Tamanho perfeito do Sukuna */
+        top: 10px;
+        left: 10px;
     }
 
     #cursor-aura {
-        width: 25px; /* Tamanho médio para o dedo no mobile */
-        height: 25px;
+        width: 40px; 
+        height: 40px;
+        display: block !important;
     }
-    
-    .link-imagem {
-        top: 15px;
-        left: 15px;
-        width: 50px;      /* No celular ela fica num tamanho médio confortável */
+
+    .img2 {
+        max-width: 85%;
     }
 }
