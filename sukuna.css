@@ -15,21 +15,18 @@ h2{
     margin: 0 auto;
     padding-left: 2px;
 }
-.img-botao {
-    width: -170px;          /* Altere este valor para diminuir ou aumentar */
-    height: auto;         /* Mantém a proporção para não achatar a imagem */
-    border: none;         /* Remove bordas indesejadas */
-    box-shadow: none;     /* Remove sombras se houver */
-    background: transparent;
-    transition: transform 0.3s;
-    cursor: pointer;
-}
-
 .link-imagem {
     position: absolute;
-    top: 15px;            /* Ajustei para 15px para não ficar colado no topo */
-    left: 15px;           /* Ajustei para 15px para não ficar colado na lateral */
-    z-index: 100;
+    top: 10px;
+    left: 10px;
+    z-index: 1000; /* Garante que fica na frente, mas sem esticar */
+    width: 50px;   /* Define um tamanho fixo para o link não ocupar a tela toda */
+}
+
+.link-botao {
+    width: 100%;   /* A imagem vai seguir os 50px do pai */
+    height: auto;
+    display: block;
 }
 .caixa-sukuna {
     max-width: 800px;

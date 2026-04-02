@@ -43,20 +43,21 @@ function manipularMovimento(e) {
 // Eventos para Computador
 document.addEventListener("mousemove", manipularMovimento);
 
-// Eventos para Celular
-document.addEventListener("touchstart", (e) => {
-    // Faz a aura aparecer no momento do toque
-    aura.style.opacity = "1";
-    manipularMovimento(e);
-}, { passive: false });
-
 document.addEventListener("touchmove", (e) => {
-    manipularMovimento(e);
-    // Impede a tela de "balançar" enquanto você corta o texto
-    e.preventDefault(); 
-}, { passive: false });
+    const touch = e.touches[0];
+    
+    // Calculamos a diferença do movimento
+    const diffX = Math.abs(touch.clientX - prevX);
+    const diffY = Math.abs(touch.clientY - prevY);
 
-document.addEventListener("touchend", () => {
+    // SE o movimento for mais horizontal (X) do que vertical (Y),
+    // a gente entende que é um CORTE e trava a rolagem.
+    // SE for mais vertical, a gente deixa rolar a página.
+    if (diffX > diffY) {
+        if (e.cancelable) e.preventDefault(); 
+        manipularMovimento(e);
+    }
+}, { passive: false });document.addEventListener("touchend", () => {
     // Faz a aura sumir quando tira o dedo (opcional)
     if (aura) aura.style.opacity = "0";
 });
