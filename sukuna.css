@@ -171,16 +171,26 @@ body,html{
 }
 
 /* --- (OPCIONAL) Se você quiser manter a Aura Fixa também --- */
+/* No seu CSS geral, adicione transição de opacidade */
 #cursor-aura {
-    position: fixed;
-    width: 30px; /* Menor, como uma ponta de caneta */
-    height: 30px;
-    background-color: transparent; /* Ou uma aura simples */
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9999; /* Fica por cima de tudo */
-    transform: translate(-50%, -50%);
-    transition: background-color 0.2s;
+    transition: opacity 0.2s ease;
+    opacity: 0; /* Começa invisível e só aparece no toque/movimento */
+    width: 50px; 
+    height: 50px;
+}
+
+/* Ajuste específico para Telas Pequenas */
+@media (max-width: 600px) {
+    #cursor-aura {
+        width: 40px; /* Um pouco menor para não cobrir o dedo */
+        height: 40px;
+        display: block !important; /* Garante que ela não seja escondida */
+    }
+    
+    .trail-element {
+        width: 60px !important;
+        height: 60px !important;
+    }
 }
 
 #cursor-aura.no-bloco {

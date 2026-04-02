@@ -6,7 +6,60 @@ const aura = document.getElementById("cursor-aura");
 const blocoResumo = document.getElementById("bloco-resumo");
 const blocoDerrota = document.getElementById("bloco-derrota");
 let textosOriginais = [];
+// Função para mover a Aura e criar o Rastro
+function manipularMovimento(e) {
+    // Pega as coordenadas (seja mouse ou toque)
+    const x = e.touches ? e.touches[0].clientX : e.clientX;
+    const y = e.touches ? e.touches[0].clientY : e.clientY;
 
+    if (aura) {
+        aura.style.opacity = "1"; // Garante que ela apareça ao tocar
+        aura.style.left = x + "px";
+        aura.style.top = y + "px";
+    }
+
+    // Lógica do Rastro (Calcula velocidade e cria a imagem)
+    const diffX = x - prevX;
+    const diffY = y - prevY;
+    const velocidade = Math.sqrt(diffX * diffX + diffY * diffY);
+    const angulo = Math.atan2(diffY, diffX) * (180 / Math.PI);
+
+    if (velocidade > 5) {
+        // Verifica o que tem embaixo do dedo/mouse
+        const alvo = document.elementFromPoint(x, y);
+        if (alvo) {
+            if (alvo.closest('#bloco-resumo')) {
+                criarRastro(x, y, angulo, 'img/Corte.png');
+            } else if (alvo.closest('#bloco-derrota')) {
+                criarRastro(x, y, angulo, 'img/Corte_mudial.png');
+            }
+        }
+    }
+
+    prevX = x;
+    prevY = y;
+}
+
+// Eventos para Computador
+document.addEventListener("mousemove", manipularMovimento);
+
+// Eventos para Celular
+document.addEventListener("touchstart", (e) => {
+    // Faz a aura aparecer no momento do toque
+    aura.style.opacity = "1";
+    manipularMovimento(e);
+}, { passive: false });
+
+document.addEventListener("touchmove", (e) => {
+    manipularMovimento(e);
+    // Impede a tela de "balançar" enquanto você corta o texto
+    e.preventDefault(); 
+}, { passive: false });
+
+document.addEventListener("touchend", () => {
+    // Faz a aura sumir quando tira o dedo (opcional)
+    if (aura) aura.style.opacity = "0";
+});
 if (btnSukuna) {
     btnSukuna.addEventListener("click", () => {
         // Salva o estado original de todos os textos antes de fatiar
