@@ -1,4 +1,3 @@
-// Use nomes simples, sem hífens, nos parênteses da função
 function configurarBotao(idContainer, idImgInicio, idVideo, idImgFinal) {
     const container = document.getElementById(idContainer);
     const imgInicio = document.getElementById(idImgInicio);
@@ -28,6 +27,5 @@ function configurarBotao(idContainer, idImgInicio, idVideo, idImgFinal) {
     });
 }
 
-// AQUI é onde você usa os nomes com hífens, dentro de ASPAS
 configurarBotao('container-gojo', 'img-inicio-gojo', 'video-gojo', 'img-final-gojo');
 configurarBotao('container-sukuna', 'img-inicio-sukuna', 'video-sukuna', 'img-final-sukuna');

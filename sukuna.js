@@ -1,4 +1,3 @@
-// Elementos da página do Sukuna
 const btnSukuna = document.getElementById("S");
 const audiosr = document.getElementById("dominior");
 const todosOsTextos = document.querySelectorAll("h1, h2, .p2");
@@ -6,26 +5,22 @@ const aura = document.getElementById("cursor-aura");
 const blocoResumo = document.getElementById("bloco-resumo");
 const blocoDerrota = document.getElementById("bloco-derrota");
 let textosOriginais = [];
-// Função para mover a Aura e criar o Rastro
 function manipularMovimento(e) {
-    // Pega as coordenadas (seja mouse ou toque)
     const x = e.touches ? e.touches[0].clientX : e.clientX;
     const y = e.touches ? e.touches[0].clientY : e.clientY;
 
     if (aura) {
-        aura.style.opacity = "1"; // Garante que ela apareça ao tocar
+        aura.style.opacity = "1";
         aura.style.left = x + "px";
         aura.style.top = y + "px";
     }
 
-    // Lógica do Rastro (Calcula velocidade e cria a imagem)
     const diffX = x - prevX;
     const diffY = y - prevY;
     const velocidade = Math.sqrt(diffX * diffX + diffY * diffY);
     const angulo = Math.atan2(diffY, diffX) * (180 / Math.PI);
 
     if (velocidade > 5) {
-        // Verifica o que tem embaixo do dedo/mouse
         const alvo = document.elementFromPoint(x, y);
         if (alvo) {
             if (alvo.closest('#bloco-resumo')) {
@@ -39,31 +34,21 @@ function manipularMovimento(e) {
     prevX = x;
     prevY = y;
 }
-
-// Eventos para Computador
 document.addEventListener("mousemove", manipularMovimento);
-
 document.addEventListener("touchmove", (e) => {
     const touch = e.touches[0];
-    
-    // Calculamos a diferença do movimento
     const diffX = Math.abs(touch.clientX - prevX);
     const diffY = Math.abs(touch.clientY - prevY);
 
-    // SE o movimento for mais horizontal (X) do que vertical (Y),
-    // a gente entende que é um CORTE e trava a rolagem.
-    // SE for mais vertical, a gente deixa rolar a página.
     if (diffX > diffY) {
         if (e.cancelable) e.preventDefault(); 
         manipularMovimento(e);
     }
 }, { passive: false });document.addEventListener("touchend", () => {
-    // Faz a aura sumir quando tira o dedo (opcional)
     if (aura) aura.style.opacity = "0";
 });
 if (btnSukuna) {
     btnSukuna.addEventListener("click", () => {
-        // Salva o estado original de todos os textos antes de fatiar
         textosOriginais = [];
         todosOsTextos.forEach(el => textosOriginais.push(el.innerHTML));
 
@@ -71,17 +56,11 @@ if (btnSukuna) {
             audiosr.currentTime = 0;
             audiosr.play();
         }
-
-        // Inicia o corte após 6 segundos (conforme seu áudio)
         setTimeout(() => {
             todosOsTextos.forEach(el => fatiarTexto(el));
-            
-            // Efeito visual de flash no fundo
             document.body.style.backgroundColor = "#4a0000";
             setTimeout(() => { document.body.style.backgroundColor = "black"; }, 200);
         }, 6000);
-
-        // Restaura os textos após 10 segundos
         setTimeout(() => {
             restaurarTodosOsTextos();
         }, 10000);
@@ -116,20 +95,18 @@ function restaurarTodosOsTextos() {
 }
 if (aura) {
     document.addEventListener("mousemove", (e) => {
-        // Usa clientX/Y para posição fixa na tela
         aura.style.left = e.clientX + "px";
         aura.style.top = e.clientY + "px";
     });
 }
 
-// --- 2. LÓGICA PARA TROCAR AS IMAGENS NOS BLOCOS ---
 function resetAura() {
     if (aura) {
-        aura.className = ""; // Remove todas as classes de corte
+        aura.className = "";
     }
 }
 
-// Bloco Resumo: Ativa o Corte Normal (Preto e Branco)
+
 if (blocoResumo) {
     blocoResumo.addEventListener("mouseenter", () => {
         resetAura();
@@ -140,7 +117,6 @@ if (blocoResumo) {
     });
 }
 
-// Bloco Derrota: Ativa o Corte Mundial (Colorido)
 if (blocoDerrota) {
     blocoDerrota.addEventListener("mouseenter", () => {
         resetAura();
@@ -151,10 +127,8 @@ if (blocoDerrota) {
     });
 }
 
-// --- 3. LÓGICA DO CLIQUE (FATIAMENTO) - Mantenha igual ---
 if (btnSukuna) {
     btnSukuna.addEventListener("click", () => {
-        // Salva o estado original de todos os textos antes de fatiar
         textosOriginais = [];
         todosOsTextos.forEach(el => textosOriginais.push(el.innerHTML));
 
@@ -163,36 +137,21 @@ if (btnSukuna) {
             audiosr.play();
         }
 
-        // Inicia o corte após 6 segundos (conforme seu áudio)
         setTimeout(() => {
-            // Pegamos os blocos separadamente para aplicar classes diferentes
             const resumoTextos = document.querySelectorAll("#bloco-resumo h2, #bloco-resumo p");
             const derrotaTextos = document.querySelectorAll("#bloco-derrota h2, #bloco-derrota p");
-
-            // Aplica corte normal no Resumo
             resumoTextos.forEach(el => fatiarTexto(el, "corta-objeto"));
-
-            // Aplica o "Corte Mundial" (outro efeito) na Derrota
             derrotaTextos.forEach(el => fatiarTexto(el, "corta-mundial"));
-
-            // Corta o H1 também
             const h1 = document.querySelector("h1");
             if (h1) fatiarTexto(h1, "corta-objeto");
-
-            // Efeito visual de flash no fundo
             document.body.style.backgroundColor = "#4a0000";
             setTimeout(() => { document.body.style.backgroundColor = "black"; }, 200);
         }, 6000);
-
-        // Restaura os textos após 10 segundos
         setTimeout(() => {
             restaurarTodosOsTextos();
         }, 10000);
     });
 }
-
-// --- FUNÇÕES DE APOIO (Fatiar e Restaurar) - Mantenha igual ---
-// Nota: Atualizei a fatiarTexto para aceitar a classe de animação
 function fatiarTexto(elemento, classeAnimacao) {
     if (!elemento) return;
     const palavras = elemento.innerText.split(" ");
@@ -202,7 +161,7 @@ function fatiarTexto(elemento, classeAnimacao) {
         span.innerText = palavra + " ";
         span.style.display = "inline-block";
         setTimeout(() => {
-            span.classList.add(classeAnimacao); // Usa a classe que enviamos
+            span.classList.add(classeAnimacao);
         }, i * 30);
         elemento.appendChild(span);
     });
@@ -220,65 +179,49 @@ function restaurarTodosOsTextos() {
         }
     });
 }
-// --- SELEÇÃO DE ELEMENTOS ---
 let mouseEmCimaDoBlocoDerrota = false;
 let mouseEmCimaDoBlocoResumo = false;
-
-// Variáveis para calcular a rotação do corte
 let mouseX = 0, mouseY = 0;
 let prevMouseX = 0, prevMouseY = 0;
 let mouseRotation = 0;
-
-// Configuração das imagens (Nomes exatos dos seus arquivos PNG transparentes)
 const imagemCorteNormal = "img/Corte.png";
 const imagemCorteMundial = "img/Corte_mudial.png";
 
-// --- 1. LÓGICA DO RASTRO E ROTAÇÃO (mousemove) ---
 document.addEventListener("mousemove", (e) => {
-    // Atualiza a posição da Aura Fixa (se houver)
     if (aura) {
         aura.style.left = e.clientX + "px";
         aura.style.top = e.clientY + "px";
     }
-
-    // Calcula a velocidade e direção para a rotação
     mouseX = e.clientX;
     mouseY = e.clientY;
 
     const deltaX = mouseX - prevMouseX;
     const deltaY = mouseY - prevMouseY;
 
-    // Calcula o ângulo do movimento (em radianos, depois graus)
     const angle = Math.atan2(deltaY, deltaX);
-    mouseRotation = angle * (180 / Math.PI); // Converte para graus
-
-    // Só cria o rastro se o mouse estiver se movendo rápido o suficiente
+    mouseRotation = angle * (180 / Math.PI);
     const speed = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
     if (speed > 5) {
         createTrailElement(e.clientX, e.clientY);
     }
 
-    // Guarda a posição atual para o próximo cálculo
     prevMouseX = mouseX;
     prevMouseY = mouseY;
 });
 
-// Função para criar uma cópia do corte (o rastro)
 function createTrailElement(x, y) {
     let currentImage = "";
-    let trailSize = 60; // Tamanho padrão
+    let trailSize = 60;
 
     if (mouseEmCimaDoBlocoDerrota) {
         currentImage = imagemCorteMundial;
-        trailSize = 80; // Maior para o Corte Mundial
+        trailSize = 80;
     } else if (mouseEmCimaDoBlocoResumo) {
         currentImage = imagemCorteNormal;
     } else {
-        // Se não estiver em bloco, não cria rastro (ou crie um diferente)
         return;
     }
 
-    // Cria a div do rastro
     const trail = document.createElement("div");
     trail.className = "trail-element";
     trail.style.backgroundImage = `url('${currentImage}')`;
@@ -286,29 +229,23 @@ function createTrailElement(x, y) {
     trail.style.height = trailSize + "px";
     trail.style.left = x + "px";
     trail.style.top = y + "px";
-
-    // Aplica a rotação baseada na direção do mouse
-    // Adicionamos +90 ou ajuste dependendo da orientação original da sua imagem
     trail.style.transform = `translate(-50%, -50%) rotate(${mouseRotation}deg)`;
 
     document.body.appendChild(trail);
 
-    // Inicia o fade-out logo após a criação
     setTimeout(() => {
         trail.classList.add("fade");
     }, 10);
 
-    // Remove do DOM após o tempo da animação CSS (0.5s)
     setTimeout(() => {
         trail.remove();
     }, 500);
 }
 
-// --- 2. LÓGICA DE DETECÇÃO DE BLOCOS (mouseenter/mouseleave) ---
 if (blocoResumo) {
     blocoResumo.addEventListener("mouseenter", () => {
         mouseEmCimaDoBlocoResumo = true;
-        if (aura) aura.classList.add("no-bloco"); // Efeito opcional na aura fixa
+        if (aura) aura.classList.add("no-bloco");
     });
     blocoResumo.addEventListener("mouseleave", () => {
         mouseEmCimaDoBlocoResumo = false;
@@ -328,10 +265,7 @@ if (blocoDerrota) {
 }
 if (btnSukuna) {
     btnSukuna.addEventListener("click", () => {
-        // Seleciona todos os textos novamente no momento do clique
         const todosOsTextos = document.querySelectorAll("h1, h2, .p2");
-        
-        // Salva originais
         textosOriginais = [];
         todosOsTextos.forEach(el => textosOriginais.push(el.innerHTML));
 
@@ -340,26 +274,20 @@ if (btnSukuna) {
             audiosr.play();
         }
 
-        // CORTE INSTANTÂNEO após 6 segundos
         setTimeout(() => {
-            // Corta o título principal
             const h1 = document.querySelector("h1");
             if (h1) fatiarTexto(h1, "corta-objeto");
 
-            // Corta o bloco Resumo
             const resumoParts = document.querySelectorAll("#bloco-resumo h2, #bloco-resumo p");
             resumoParts.forEach(el => fatiarTexto(el, "corta-objeto"));
 
-            // Corta o bloco Derrota (Agora vai funcionar!)
             const derrotaParts = document.querySelectorAll("#bloco-derrota h2, #bloco-derrota p");
             derrotaParts.forEach(el => fatiarTexto(el, "corta-objeto"));
 
-            // Flash de luz
             document.body.style.backgroundColor = "#4a0000";
             setTimeout(() => { document.body.style.backgroundColor = "black"; }, 200);
         }, 6000);
 
-        // Restaura após 10 segundos
         setTimeout(restaurarTextos, 16000);
     });
 }
@@ -372,7 +300,6 @@ function fatiarTexto(elemento, classe) {
         const span = document.createElement("span");
         span.innerText = palavra + " ";
         span.style.display = "inline-block";
-        // i * 1 para ser quase simultâneo
         setTimeout(() => {
             span.classList.add(classe);
         }, i * 10); 
@@ -390,7 +317,6 @@ function restaurarTextos() {
     });
 }
 
-// Lógica do Rastro (Mantenha apenas uma vez)
 document.addEventListener("mousemove", (e) => {
     if (aura) {
         aura.style.left = e.clientX + "px";
@@ -403,19 +329,16 @@ document.addEventListener("mousemove", (e) => {
     mouseX = e.clientX;
     mouseY = e.clientY;
 
-    // Atualiza aura fixa
     if (aura) {
         aura.style.left = mouseX + "px";
         aura.style.top = mouseY + "px";
     }
 
-    // Calcula direção para o rastro
     const diffX = mouseX - prevX;
     const diffY = mouseY - prevY;
     const angulo = Math.atan2(diffY, diffX) * (180 / Math.PI);
     const velocidade = Math.sqrt(diffX*diffX + diffY*diffY);
 
-    // Cria rastro apenas se estiver dentro de um bloco e movendo o mouse
     if (velocidade > 4) {
         if (blocoResumo && blocoResumo.matches(':hover')) {
             criarRastro(mouseX, mouseY, angulo, 'Corte.png');
@@ -436,8 +359,6 @@ function criarRastro(x, y, rot, img) {
     rastro.style.height = "80px";
     rastro.style.left = x + "px";
     rastro.style.top = y + "px";
-    
-    // Faz a imagem girar na direção do mouse
     rastro.style.transform = `translate(-50%, -50%) rotate(${rot}deg)`;
 
     document.body.appendChild(rastro);

@@ -1,17 +1,13 @@
-/* ==========================================
-   1. CONFIGURAÇÕES GERAIS (ESTILO SUKUNA)
-   ========================================== */
-body, html {
+html {
     background-color: rgb(0, 0, 0);
     margin: 0;
     padding: 0;
     min-height: 100vh;
     overflow-x: hidden;
     transition: 0.3s;
-    cursor: none; /* Esconde o mouse no PC para usar a Aura */
+    cursor: none;
 }
 
-/* Modo Branco (Pós-Domínio) */
 body.modo-braco {
     background-color: white;
 }
@@ -19,9 +15,6 @@ body.modo-braco h1, body.modo-braco h2, body.modo-braco p {
     color: black;
 }
 
-/* ==========================================
-   2. AURA / BOLA DO GOJO
-   ========================================== */
 #cursor-aura {
     position: fixed;
     pointer-events: none;
@@ -34,7 +27,6 @@ body.modo-braco h1, body.modo-braco h2, body.modo-braco p {
     transition: opacity 0.2s, background-color 0.3s, box-shadow 0.3s;
 }
 
-/* Cores acionadas pelo JS */
 .aura-azul {
     background-color: rgba(0, 150, 255, 0.4) !important;
     box-shadow: 0 0 20px #00aaff, 0 0 40px #0044ff;
@@ -46,17 +38,6 @@ body.modo-braco h1, body.modo-braco h2, body.modo-braco p {
 .aura-roxo {
     background-color: rgba(138, 43, 226, 0.4) !important;
     box-shadow: 0 0 20px #8a2be2, 0 0 40px #4b0082;
-}
-
-/* ==========================================
-   3. NAVEGAÇÃO E BOTÕES (IGUAL SUKUNA)
-   ========================================== */
-.link-imagem {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    z-index: 1000;
-    width: 60px; /* Tamanho no PC */
 }
 
 .link-botao {
@@ -73,60 +54,85 @@ body.modo-braco h1, body.modo-braco h2, body.modo-braco p {
     cursor: pointer;
 }
 
-/* ==========================================
-   4. LAYOUT DE TEXTO (PADRÃO SUKUNA)
-   ========================================== */
+h1{
+    text-align: center;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: rgb(255, 255, 255);
+}
+h2{
+    margin-bottom: 5px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: rgb(255, 255, 255);
+    margin-bottom: 5px;
+    font-size: 2.5rem;
+}
 .container-texto {
     max-width: 800px;
     margin: 0 auto;
-    padding: 20px;
+    padding-left: 2px;
+}
+.link-imagem {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 1000;
+    width: 50px;
+}
+
+.link-botao {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+.caixa-sukuna {
+    max-width: 800px;
+    margin: 0 auto;
     text-align: left;
+    padding: 20px;
 }
 
-h1 {
-    text-align: center;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    color: rgb(145, 145, 145);
-    font-size: 3rem;
-    margin-top: 50px;
-}
-
-h2 {
+#resumo-titulo {
     margin-bottom: 5px;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    color: rgb(200, 200, 200);
-    font-size: 2.5rem;
-    margin-top: 30px;
+    padding-left: 0;
+    margin-left: 0;
+    color: rgb(255, 255, 255);
 }
-
-p, .p2 {
-    text-align: justify;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    color: rgb(180, 180, 180);
+.p2 {
     margin-top: 0;
+    padding-left: 0;
+    margin-left: 0;
+    text-align: justify;
+}
+p{
+    text-align: left;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: rgb(248, 248, 248);
+    text-align: justify;
+    margin-top: 0;
+    padding: 0 40px;
     line-height: 1.6;
-    margin-bottom: 20px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-/* Imagem Central */
-.img2 {
+.BU2css{
+    display: block;
+    margin: 20px auto;
+}
+body,html{
+    background-color: rgb(0, 0, 0);
+    transition: 0.3s;
+    overflow-x: hidden;
+}
+.img2{
     display: block;
     margin: 20px auto;
     max-width: 300px;
     border: 2px solid rgb(255, 255, 255);
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); 
 }
 
-/* Espaçamento para fatiamento futuro */
-.p2 span, h2 span, h1 span {
-    display: inline-block;
-    white-space: pre;
-    margin-right: 0.1em;
-}
-
-/* ==========================================
-   5. VÍDEOS
-   ========================================== */
 .video-g {
     display: none;
     position: fixed;
@@ -142,21 +148,29 @@ p, .p2 {
     display: block !important;
 }
 
-/* ==========================================
-   6. RESPONSIVIDADE (FOCO NO MOBILE)
-   ========================================== */
 @media (max-width: 600px) {
-    #cursor-aura {
-        width: 40px; /* Um pouco menor para não cobrir o dedo */
-        height: 40px;
-        display: block !important; /* Garante que ela não seja escondida */
+    .container-texto{
+        padding: 10px 20px; 
+        max-width: 100%;
+    }
+
+    h1 { 
+        font-size: 1.8rem !important; 
+        margin-top: 50px; 
+        text-align: center;
     }
     
-    .trail-element {
-        width: 60px !important;
-        height: 60px !important;
+    h2 { 
+        font-size: 1.5rem !important; 
+        margin-top: 20px;
     }
-}
+
+    p {
+        padding: 0 15px;
+        font-size: 1rem;
+        line-height: 1.4;
+    }
+
     #cursor-aura {
         width: 40px; 
         height: 40px;
@@ -164,5 +178,7 @@ p, .p2 {
     }
 
     .img2 {
-        max-width: 85%;
+        max-width: 90%;
+        height: auto;
     }
+}

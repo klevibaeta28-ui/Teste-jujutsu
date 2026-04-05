@@ -3,9 +3,7 @@ const botao2 = document.getElementById("Gojo");
 const videog = document.getElementById("dominio");
 const videog2 = document.getElementById("dominio-rapido");
 
-// Função principal de movimento
 function tratarMovimento(e) {
-    // Pega as coordenadas se for Toque ou se for Mouse
     const x = e.touches ? e.touches[0].clientX : e.clientX;
     const y = e.touches ? e.touches[0].clientY : e.clientY;
 
@@ -15,7 +13,6 @@ function tratarMovimento(e) {
         aura.style.opacity = "1";
     }
 
-    // Detecta o elemento embaixo da aura
     const alvo = document.elementFromPoint(x, y);
     
     if (alvo) {
@@ -32,23 +29,18 @@ function tratarMovimento(e) {
     }
 }
 
-// Escuta o MOUSE (PC)
 document.addEventListener("mousemove", tratarMovimento);
 
-// Escuta o TOQUE (Celular)
 document.addEventListener("touchmove", (e) => {
     tratarMovimento(e);
-    // Impede a tela de balançar no mobile ao passar o dedo
     if (e.cancelable) e.preventDefault(); 
 }, { passive: false });
 
-// Faz a aura aparecer/sumir
 document.addEventListener("mouseenter", () => aura.style.opacity = "1");
 document.addEventListener("mouseleave", () => aura.style.opacity = "0");
 document.addEventListener("touchstart", () => aura.style.opacity = "1");
 
 
-// --- LÓGICA DOS VÍDEOS (IGUAL) ---
 let cliques = 0;
 let timer;
 botao2.addEventListener("click", () => {

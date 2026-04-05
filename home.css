@@ -21,27 +21,27 @@ p{
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 .p2 {
-    margin-top: 40px;    /* Espaço em cima do texto */
-    margin-bottom: 20px; /* Espaço entre o texto e os links */
+    margin-top: 40px;
+    margin-bottom: 20px;
     text-align: left;
     font-size: 2rem;
     color: aliceblue;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 a {
-    display: block;      /* Faz o link ocupar a linha inteira */
+    display: block;
     color: blue;
     text-decoration: none;
-    margin-right: 15px; /* Espaço entre um link e outro */
+    margin-right: 15px;
     font-size: 1.2rem;
 }
 
 a:hover {
-    text-decoration: underline; /* Fica sublinhado quando passa o mouse */
+    text-decoration: underline;
 }
 
 #video-gojo, #img-final-gojo, #video-sukuna, #img-final-sukuna {
-    display: none; /* Esconde por padrão */
+    display: none;
     position: absolute; 
     top: 0;
     left: 0;
@@ -52,14 +52,14 @@ a:hover {
 .midia-botao {
     width: 100%;
     height: 100%;
-    object-fit: contain; /* Troque 'cover' por 'contain' */
+    object-fit: contain;
     display: block;
-    background-color: white; /* Adicione um fundo para não ficar buraco preto */
+    background-color: white;
 }
-/* Garante que o container seja o ponto de referência */
+
 .link-imagem {
     position: relative;
-    display: inline-block; /* Mudado de block para inline-block para caber um do lado do outro */
+    display: inline-block;
     width: 150px;
     height: 100px;
     overflow: hidden;
